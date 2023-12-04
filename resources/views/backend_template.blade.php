@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Breeze Admin</title>
+    <link rel="stylesheet" href="{{ asset('backend/template/assets/vendors/mdi/css/materialdesignicons.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/template/assets/vendors/flag-icon-css/css/flag-icon.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/template/assets/vendors/css/vendor.bundle.base.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/template/assets/vendors/font-awesome/css/font-awesome.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/template/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/template/assets/css/style.css') }}" />
+    <link rel="shortcut icon" href="{{ asset('backend/template/assets/images/favicon.png') }}" />
+  </head>
+  <body>
+    <div class="container-scroller">
+      @include('template.sidebar')
+      <div class="container-fluid page-body-wrapper">
+        @include('template.header')
+        <div class="main-panel">
+            <div class="content-wrapper pb-0">
+                @yield('content')
+            </div>
+          <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>
+            </div>
+          </footer>
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{{ asset('backend/template/assets/vendors/js/vendor.bundle.base.js') }}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="{{ asset('backend/template/assets/vendors/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('backend/template/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('backend/template/assets/vendors/flot/jquery.flot.js') }}"></script>
+    <script src="{{ asset('backend/template/assets/vendors/flot/jquery.flot.resize.js') }}"></script>
+    <script src="{{ asset('backend/template/assets/vendors/flot/jquery.flot.categories.js') }}"></script>
+    <script src="{{ asset('backend/template/assets/vendors/flot/jquery.flot.fillbetween.js') }}"></script>
+    <script src="{{ asset('backend/template/assets/vendors/flot/jquery.flot.stack.js') }}"></script>
+    <script src="{{ asset('backend/template/assets/vendors/flot/jquery.flot.pie.js') }}"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{{ asset('backend/template/assets/js/off-canvas.js') }}"></script>
+    <script src="{{ asset('backend/template/assets/js/hoverable-collapse.js') }}"></script>
+    <script src="{{ asset('backend/template/assets/js/misc.js') }}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="{{ asset('backend/template/assets/js/dashboard.js') }}"></script>
+    <!-- End custom js for this page -->
+  </body>
+</html>
