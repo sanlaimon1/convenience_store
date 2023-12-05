@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="{{ asset('backend/template/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/template/assets/css/style.css') }}" />
     <link rel="shortcut icon" href="{{ asset('backend/template/assets/images/favicon.png') }}" />
+    <!-- Datatable Css -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
+    <!-- End Datatable -->
+    <link rel="stylesheet" href="{{ asset('css/common.css') }}" />
   </head>
   <body>
     <div class="container-scroller" style="height: 100vh !important">
@@ -19,7 +23,7 @@
       <div class="container-fluid page-body-wrapper">
         @include('template.header')
         <div class="main-panel">
-            <div class="content-wrapper pb-0">
+            <div class="content-wrapper pb-0" style="overflow-y: scroll;">
                 @yield('content')
             </div>
           <footer class="footer">
@@ -55,7 +59,12 @@
     <!-- Custom js for this page -->
     <script src="{{ asset('backend/template/assets/js/dashboard.js') }}"></script>
     <!-- End custom js for this page -->
+    <!-- Datatable Js -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <!-- End Datatable -->
     <!-- common js for all page -->
     <script src="{{ asset('js/common.js') }}"></script>
+    @yield('scripts')
   </body>
 </html>

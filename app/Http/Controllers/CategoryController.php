@@ -5,17 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use DataTables;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::get();
+        if ($request->ajax()) {
+            try {
+                $data = Category::latest()->get();
+                return Datatables::of($data)
+                    ->make(true);
+            } catch (\Exception $e) {
+                return response()->json(['error' => $e->getMessage()]);
+            }
+        }
+        // $categories = Category::get();
         $category = [];
-        return view('category.index' , compact('categories', 'category'));
+        return view('category.index' , compact('category'));
     }
 
     /**

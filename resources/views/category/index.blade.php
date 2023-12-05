@@ -36,42 +36,39 @@
 
                     <!-- Categry Table -->
                     <div class="table-responsive">
-                        <table class="table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Category Name</th>
-                                <th>Created</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                            <tbody>
-                                @foreach($categories as $key => $category)
+                        <table class="table" id="category_tbl">
+                            <thead>
                                 <tr>
-                                    <td>{{ $category->id }}</td>
-                                    <td>{{ $category->category_name }}</td>
-                                    <td>{{ $category->created_at }}</td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <a href="{{ route('category.show', ['category'=>$category->id]) }}" class="btn btn-primary">
-                                                <i class="mdi mdi-pencil-box"></i>
-                                            </a>
-                                            <form action="{{ route('category.destroy', ['category'=>$category->id]) }}" method="post" onsubmit="javascript:return del()">
-                                                {{ csrf_field() }}
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">
-                                                    <i class="mdi mdi-delete-forever"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
+                                    <th>No</th>
+                                    <th>Category Name</th>
+                                    <th>Created</th>
+                                    <th>Status</th>
                                 </tr>
-                                @endforeach
-                            </tbody>
+                            </thead>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+<script>
+    $(document).ready(function () {
+        $('#category_tbl').DataTable({
+            "serverSide": true,
+            "processing": true,
+            "paging": true,
+            "searching": { "regex": true },
+            "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
+            "pageLength": 10,
+            ajax: "{{ url('category') }}",
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'category_name', name: 'category_name' },
+                { data: 'created_at', name: 'created_at' },
+            ]
+        });
+    });
+</script>
 @endsection
