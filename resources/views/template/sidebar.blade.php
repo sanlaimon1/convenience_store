@@ -19,71 +19,69 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="#">
           <i class="mdi mdi-home menu-icon"></i>
           <span class="menu-title">Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="{{ route('order.index') }}">
+          <i class="mdi mdi-monitor menu-icon"></i>
+          <span class="menu-title">Order</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('order_item.index') }}">
+          <i class="mdi mdi-monitor-multiple menu-icon"></i>
+          <span class="menu-title">Order Item</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('store.index') }}">
+          <i class="mdi mdi-home-variant menu-icon"></i>
+          <span class="menu-title">Store</span>
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-          <i class="mdi mdi-crosshairs-gps menu-icon"></i>
-          <span class="menu-title">Basic UI Elements</span>
+          <i class="mdi mdi-library-books menu-icon"></i>
+          <span class="menu-title">Item</span>
           <i class="menu-arrow"></i>
         </a>
         <div class="collapse" id="ui-basic">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item">
-              <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a>
+              <a class="nav-link" href="{{ route('category.index') }}">Category</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a>
+              <a class="nav-link" href="{{ route('brand.index') }}">Brand</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/ui-features/typography.html">Typography</a>
+              <a class="nav-link" href="{{ route('product.index') }}">Product</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('stock.index') }}">Stock</a>
             </li>
           </ul>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="pages/icons/mdi.html">
-          <i class="mdi mdi-contacts menu-icon"></i>
-          <span class="menu-title">Icons</span>
+        <a class="nav-link" href="{{ route('customer.index') }}">
+          <i class="mdi mdi-account-multiple menu-icon"></i>
+          <span class="menu-title">Customer</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="pages/forms/basic_elements.html">
-          <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-          <span class="menu-title">Forms</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="pages/charts/chartjs.html">
-          <i class="mdi mdi-chart-bar menu-icon"></i>
-          <span class="menu-title">Charts</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="pages/tables/basic-table.html">
-          <i class="mdi mdi-table-large menu-icon"></i>
-          <span class="menu-title">Tables</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <span class="nav-link" href="#">
-          <span class="menu-title">Docs</span>
-        </span>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="https://www.bootstrapdash.com/demo/breeze-free/documentation/documentation.html">
-          <i class="mdi mdi-file-document-box menu-icon"></i>
-          <span class="menu-title">Documentation</span>
+        <a class="nav-link" href="{{ route('staff.index') }}">
+          <i class="mdi mdi-account-switch menu-icon"></i>
+          <span class="menu-title">Staff</span>
         </a>
       </li>
       <li class="nav-item sidebar-actions">
         <div class="nav-link">
           <div class="mt-4">
             <div class="border-none">
-              <p class="text-black">Notification</p>
+              <p class="text-black">Sign Out</p>
             </div>
             <ul class="mt-4 pl-0">
               <li>Sign Out</li>

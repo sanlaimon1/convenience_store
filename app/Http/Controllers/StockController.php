@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StockController extends Controller
 {
@@ -12,7 +13,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        //
+        return view('stock.index');
     }
 
     /**

@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="{{ asset('backend/template/assets/images/favicon.png') }}" />
   </head>
   <body>
-    <div class="container-scroller">
+    <div class="container-scroller" style="height: 100vh !important">
       @include('template.sidebar')
       <div class="container-fluid page-body-wrapper">
         @include('template.header')
@@ -55,5 +55,7 @@
     <!-- Custom js for this page -->
     <script src="{{ asset('backend/template/assets/js/dashboard.js') }}"></script>
     <!-- End custom js for this page -->
+    <!-- common js for all page -->
+    <script src="{{ asset('js/common.js') }}"></script>
   </body>
 </html>

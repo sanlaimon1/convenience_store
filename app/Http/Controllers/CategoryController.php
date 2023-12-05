@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -12,7 +13,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::get();
+        $category = [];
+        return view('category.index' , compact('categories', 'category'));
     }
 
     /**
@@ -28,15 +31,33 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'cat_name' => 'required|string',
+        ]);
+        DB::beginTransaction();
+        try {
+            $cat = new Category();
+            $cat->category_name = $request->cat_name;
+            $cat->save();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $message = $e->getMessage();
+            return $message;
+        }
+        return redirect()->route('category.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(string $id)
     {
-        //
+        $id = (int)$id;
+        $category = Category::find($id);
+        $categories = Category::get();
+
+        return view('category.index', compact('category', 'categories'));
     }
 
     /**
@@ -50,16 +71,42 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'cat_name' => 'required|string',
+        ]);
+        $id = (int)$id;
+        DB::beginTransaction();
+        try {
+            $cat = Category::find($id);
+            $cat->category_name = $request->cat_name;
+            $cat->save();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $message = $e->getMessage();
+            return $message;
+        }
+        return redirect()->route('category.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(string $id, Request $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $id = (int)$id;
+            $cat = Category::find($id);
+            $cat->delete();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $message = $e->getMessage();
+            return $message;
+        };
+        return redirect()->route('category.index');
     }
 }

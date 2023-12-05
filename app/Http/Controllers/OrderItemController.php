@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderItemController extends Controller
 {
@@ -12,7 +13,7 @@ class OrderItemController extends Controller
      */
     public function index()
     {
-        //
+        return view('order_item.index');
     }
 
     /**
