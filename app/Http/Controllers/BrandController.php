@@ -13,7 +13,9 @@ class BrandController extends Controller
      */
     public function index()
     {
-        return view('brand.index');
+        $brands = Brand::all();
+        $brand = [];
+        return view('brand.index', compact('brands', 'brand'));
     }
 
     /**
@@ -29,15 +31,33 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'brand_name' => 'required|string',
+        ]);
+        DB::beginTransaction();
+        try {
+            $brand = new Brand();
+            $brand->brand_name = $request->brand_name;
+            $brand->save();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $message = $e->getMessage();
+            return $message;
+        }
+        return redirect()->route('brand.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Brand $brand)
+    public function show(string $id)
     {
-        //
+        $id = (int)$id;
+        $brand = Brand::find($id);
+        $brands = Brand::all();
+
+        return view('brand.index', compact('brand', 'brands'));
     }
 
     /**
@@ -51,16 +71,42 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'brand_name' => 'required|string',
+        ]);
+        $id = (int)$id;
+        DB::beginTransaction();
+        try {
+            $brand = Brand::find($id);
+            $brand->brand_name = $request->brand_name;
+            $brand->save();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $message = $e->getMessage();
+            return $message;
+        }
+        return redirect()->route('brand.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Brand $brand)
+    public function destroy(string $id, Request $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $id = (int)$id;
+            $brand = Brand::find($id);
+            $brand->delete();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $message = $e->getMessage();
+            return $message;
+        };
+        return redirect()->route('brand.index');
     }
 }
