@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use DataTables;
+use Yajra\DataTables\DataTables;
 
 class CategoryController extends Controller
 {
@@ -18,7 +18,14 @@ class CategoryController extends Controller
             try {
                 $data = Category::latest()->get();
                 return Datatables::of($data)
-                    ->make(true);
+                        ->addIndexColumn()
+                        ->addColumn('action', function($row){
+                            $btn = '<a href="javascript:void(0)" data-id="'.$row->id.'" class="btn btn-primary edit"><i class="mdi mdi-pencil-box"></i></a>';
+                            $btn .= ' <a href="javascript:void(0)" data-id="'.$row->id.'" class="btn btn-danger delete"><i class="mdi mdi-delete-forever"></i></a>';
+                            return $btn;
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
             } catch (\Exception $e) {
                 return response()->json(['error' => $e->getMessage()]);
             }
@@ -61,21 +68,21 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
     {
         $id = (int)$id;
         $category = Category::find($id);
         $categories = Category::get();
 
         return view('category.index', compact('category', 'categories'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
-    {
-        //
     }
 
     /**
@@ -117,6 +124,6 @@ class CategoryController extends Controller
             $message = $e->getMessage();
             return $message;
         };
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('success', 'Category deleted successfully');;
     }
 }

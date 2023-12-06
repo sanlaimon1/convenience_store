@@ -1,7 +1,7 @@
 @extends('backend_template')
 @section('content')
     <div class="page-header">
-        <h3 class="page-title">Category Tables</h3>
+        <h3 class="page-title">Category Table</h3>
         <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Item</a></li>
@@ -60,15 +60,43 @@
             "processing": true,
             "paging": true,
             "searching": { "regex": true },
-            "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
             "pageLength": 10,
-            ajax: "{{ url('category') }}",
+            ajax: "{{ route("category.index") }}",
             columns: [
-                { data: 'id', name: 'id' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'category_name', name: 'category_name' },
                 { data: 'created_at', name: 'created_at' },
+                { data: 'action', name: 'action', orderable: false, searchable: false },
             ]
         });
+
+        // Edit button click event
+        $('#category_tbl').on('click', '.edit', function(){
+            var id = $(this).data('id');
+            window.location.href = '/category/' + id + '/edit';
+        });
+
+        // Delete button click event
+        $('#category_tbl').on('click', '.delete', function(){
+            var id = $(this).data('id');
+            var table = $(this).data('table');
+            if (del()) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: 'category/' + id,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+        });
+
     });
 </script>
 @endsection
