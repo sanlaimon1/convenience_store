@@ -55,7 +55,7 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-        $('#category_tbl').DataTable({
+        var table =  $('#category_tbl').DataTable({
             "serverSide": true,
             "processing": true,
             "paging": true,
@@ -79,7 +79,6 @@
         // Delete button click event
         $('#category_tbl').on('click', '.delete', function(){
             var id = $(this).data('id');
-            var table = $(this).data('table');
             if (del()) {
                 $.ajax({
                     type: 'DELETE',
@@ -89,9 +88,11 @@
                     },
                     success: function (response) {
                         console.log(response);
+                        table.ajax.reload();
                     },
                     error: function (error) {
                         console.log(error);
+                        table.ajax.reload();
                     }
                 });
             }
