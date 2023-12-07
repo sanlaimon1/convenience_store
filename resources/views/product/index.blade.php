@@ -1,8 +1,62 @@
 @extends('backend_template')
 @section('content')
+    <div class="page-header">
+        <h3 class="page-title">Product Tables</h3>
+        <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Item</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> Product </li>
+        </ol>
+        </nav>
+    </div>
     <div class="row">
-        <div class="col-xs-12">
-            <h1>This is Product Index!</h1>
+        <a href="{{ route('product.create') }}" class="btn btn-primary ml-3 mb-2 text-white">
+            <i class="mdi mdi-plus"></i> Add Product
+        </a>
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table" id="product_tbl">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Product Name</th>
+                                    <th>Model Year</th>
+                                    <th>Price</th>
+                                    <th>Category</th>
+                                    <th>Brand</th>
+                                    <th>Status</th>
+
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+<script>
+    $(document).ready(function () {
+        $('#product_tbl').DataTable({
+            "serverSide": true,
+            "processing": true,
+            "paging": true,
+            "searching": { "regex": true },
+            "pageLength": 10,
+            ajax: "{{ route("product.index") }}",
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                { data: 'product_name', name: 'product_name' },
+                { data: 'model_year', name: 'model_year' },
+                { data: 'list_price', name: 'list_price' },
+                { data: 'category_id', name: 'category' },
+                { data: 'brand_id', name: 'brand' },
+                { data: 'action', name: 'action', orderable: false, searchable: false },
+            ]
+        });
+    });
+</script>
 @endsection

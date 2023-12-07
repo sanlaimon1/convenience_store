@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
     <!-- End Datatable -->
     <link rel="stylesheet" href="{{ asset('css/common.css') }}" />
+
+    <link rel="stylesheet" href="{{ asset('backend/template/assets/vendors/select2/select2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/template/assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}" />
   </head>
   <body>
     <div class="container-scroller" style="height: 100vh !important">
@@ -66,6 +69,11 @@
     <!-- End Datatable -->
     <!-- common js for all page -->
     <script src="{{ asset('js/common.js') }}"></script>
+
+
+    <script src="{{ asset('backend/template/assets/vendors/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('backend/template/assets/js/select2.js') }}"></script>
+
     @yield('scripts')
   </body>
 </html>
