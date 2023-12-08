@@ -40,7 +40,7 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-        $('#product_tbl').DataTable({
+        var table = $('#product_tbl').DataTable({
             "serverSide": true,
             "processing": true,
             "paging": true,
@@ -56,6 +56,31 @@
                 { data: 'brand_id', name: 'brand' },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ]
+        });
+
+
+         // Delete button click event
+         $('#product_tbl').on('click', '.delete', function(){
+            var id = $(this).data('id');
+            var url = "{{ route('product.destroy', ['product' => ':id']) }}";
+            url = url.replace(':id', id);
+            if (del()) {
+                $.ajax({
+                    type: 'POST',
+                    data: { _method: 'DELETE'},
+                    url: url,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        table.ajax.reload();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
         });
     });
 </script>

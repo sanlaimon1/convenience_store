@@ -36,7 +36,7 @@
 
                     <!-- brand Table -->
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table" id="brand_tbl">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -45,33 +45,63 @@
                                 <th>Status</th>
                             </tr>
                         </thead>
-                            <tbody>
-                                @foreach($brands as $key => $brand)
-                                <tr>
-                                    <td>{{ $brand->id }}</td>
-                                    <td>{{ $brand->brand_name }}</td>
-                                    <td>{{ $brand->created_at }}</td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <a href="{{ route('brand.show', ['brand'=>$brand->id]) }}" class="btn btn-primary">
-                                                <i class="mdi mdi-pencil-box"></i>
-                                            </a>
-                                            <form action="{{ route('brand.destroy', ['brand'=>$brand->id]) }}" method="post" onsubmit="javascript:return del()">
-                                                {{ csrf_field() }}
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">
-                                                    <i class="mdi mdi-delete-forever"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
+                            
                         </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function () {
+        var table =  $('#brand_tbl').DataTable({
+            "serverSide": true,
+            "processing": true,
+            "paging": true,
+            "searching": { "regex": true },
+            "pageLength": 10,
+            ajax: "{{ route("brand.index") }}",
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                { data: 'brand_name', name: 'brand_name' },
+                { data: 'created_at', name: 'created_at' },
+                { data: 'action', name: 'action', orderable: false, searchable: false },
+            ]
+        });
+
+        // Edit button click event
+        $('#brand_tbl').on('click', '.edit', function(){
+            var id = $(this).data('id');
+            window.location.href = '/brand/' + id + '/edit';
+        });
+
+        // Delete button click event
+        $('#brand_tbl').on('click', '.delete', function(){
+            var id = $(this).data('id');
+            var url = "{{ route('brand.destroy', ['brand' => ':id']) }}";
+            url = url.replace(':id', id);
+            if (del()) {
+                $.ajax({
+                    type: 'POST',
+                    data: { _method: 'DELETE'},
+                    url: url,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        table.ajax.reload();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+        });
+
+    });
+</script>
 @endsection

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use App\Models\Brand;
+use Psy\CodeCleaner\ReturnTypePass;
 use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller
@@ -98,22 +99,58 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+        $brands = Brand::all();
+        return view('product.form', compact('categories', 'brands', 'product'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'product_name' => 'required',
+            'model_year' => 'required',
+            'list_price' => 'required',
+            'category' => 'required',
+            'brand' => 'required',
+        ]);
+        DB::beginTransaction();
+        try {
+            $product = Product::find($id);
+            $product->product_name = $request->product_name;
+            $product->model_year = $request->model_year;
+            $product->list_price = $request->list_price;
+            $product->category_id = $request->category;
+            $product->brand_id = $request->brand;
+
+            $product->save();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $message = $e->getMessage();
+            return $message;
+        }
+        return redirect()->route('product.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(string $id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $id = (int)$id;
+            $product = Product::find($id);
+            $product->delete();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $message = $e->getMessage();
+            return $message;
+        };
+        return redirect()->route('product.index')->with('success', 'Product deleted successfully');
     }
 }
