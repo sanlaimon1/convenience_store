@@ -21,6 +21,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Product Code</th>
                                     <th>Product Name</th>
                                     <th>Model Year</th>
                                     <th>Price</th>
@@ -49,6 +50,7 @@
             ajax: "{{ route("product.index") }}",
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                { data: 'product_code', name: 'product_code' },
                 { data: 'product_name', name: 'product_name' },
                 { data: 'model_year', name: 'model_year' },
                 { data: 'list_price', name: 'list_price' },

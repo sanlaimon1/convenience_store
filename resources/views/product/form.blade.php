@@ -24,6 +24,12 @@
                         <div class="row">
                             <div class="col-lg-5">
                                 <div class="form-group">
+                                    <label for="product_code">Product Code</label>
+                                    <input type="text" class="form-control" id="product_code" name="product_code" value="{{ old('product_code') ? old('product_code') : $product_code }}" readonly placeholder="Product Code" />
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="form-group">
                                     <label for="product_name">Product Name</label>
                                     <input type="text" class="form-control" id="product_name" name="product_name" value="{{ $product ? $product->product_name :  old('product_name') }}" placeholder="Product Name" />
                                     @error('product_name')
