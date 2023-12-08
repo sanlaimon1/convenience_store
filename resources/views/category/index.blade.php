@@ -26,6 +26,9 @@
                                 <div class="form-group">
                                     <label for="cat_name">Category Name</label>
                                     <input type="text" class="form-control" id="cat_name" name="cat_name" value="{{ $category ? $category->category_name :  old('cat_name') }}" placeholder="Category Name" />
+                                    @error('cat_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-4">
