@@ -79,10 +79,13 @@
         // Delete button click event
         $('#category_tbl').on('click', '.delete', function(){
             var id = $(this).data('id');
+            var url = "{{ route('category.destroy', ['category' => ':id']) }}";
+            url = url.replace(':id', id);
             if (del()) {
                 $.ajax({
-                    type: 'DELETE',
-                    url: 'category/' + id,
+                    type: 'POST',
+                    data: { _method: 'DELETE'},
+                    url: url,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -92,7 +95,6 @@
                     },
                     error: function (error) {
                         console.log(error);
-                        table.ajax.reload();
                     }
                 });
             }
