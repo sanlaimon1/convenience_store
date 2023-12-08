@@ -30,7 +30,6 @@ class CategoryController extends Controller
                 return response()->json(['error' => $e->getMessage()]);
             }
         }
-        // $categories = Category::get();
         $category = [];
         return view('category.index' , compact('category'));
     }
@@ -111,7 +110,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id, Request $request)
+    public function destroy(string $id)
     {
         DB::beginTransaction();
         try {
@@ -124,6 +123,6 @@ class CategoryController extends Controller
             $message = $e->getMessage();
             return $message;
         };
-        return redirect()->route('category.index')->with('success', 'Category deleted successfully');;
+        return redirect()->route('category.index')->with('success', 'Category deleted successfully');
     }
 }
