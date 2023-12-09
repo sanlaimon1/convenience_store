@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -22,6 +23,6 @@ class UserSeeder extends Seeder
             'updated_at' => date('Y-m-d H:m:s'),
         ]);
 
-        $user->assignRole('admin');
+        // $user->assignRole('admin');
     }
 }
