@@ -5,7 +5,7 @@
         <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Item</a></li>
-            <li class="breadcrumb-item active" aria-current="page"> Product </li>
+            <li class="breadcrumb-item active" aria-current="page"> <a href="{{route('product.index')}}">Product</a> </li>
         </ol>
         </nav>
     </div>
@@ -22,6 +22,12 @@
                         @endif
 
                         <div class="row">
+                            <div class="col-lg-5">
+                                <div class="form-group">
+                                    <label for="product_code">Product Code</label>
+                                    <input type="text" class="form-control" id="product_code" name="product_code" value="{{ old('product_code') ? old('product_code') : $product_code }}" readonly placeholder="Product Code" />
+                                </div>
+                            </div>
                             <div class="col-lg-5">
                                 <div class="form-group">
                                     <label for="product_name">Product Name</label>
@@ -54,7 +60,7 @@
                                     <label for="category">Category</label>
                                         <select class="js-example-basic-single form-control" style="width: 100%" name='category'>
                                             @foreach($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                                <option value="{{ $category->id }}" @if($product) @if($product->category_id == $category->id) selected @endif @endif>{{ $category->category_name }}</option>
                                             @endforeach
                                         </select>
                                 </div>
@@ -65,7 +71,7 @@
                                     <label for="brand">Brand</label>
                                         <select class="js-example-basic-single form-control" style="width: 100%" name='brand'>
                                             @foreach($brands as $brand)
-                                                <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
+                                                <option value="{{ $brand->id }}" @if($product) @if($product->brand_id == $brand->id) selected @endif @endif>{{ $brand->brand_name }}</option>
                                             @endforeach
                                         </select>
                                 </div>

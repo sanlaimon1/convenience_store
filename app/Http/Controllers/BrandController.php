@@ -5,17 +5,34 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $brands = Brand::all();
+        if ($request->ajax()) {
+            try {
+                $data = Brand::latest()->get();
+                return Datatables::of($data)
+                        ->addIndexColumn()
+                        ->addColumn('action', function($row){
+                            $btn = '<a href="javascript:void(0)" data-id="'.$row->id.'" class="btn btn-primary edit"><i class="mdi mdi-pencil-box"></i></a>';
+                            $btn .= ' <a href="javascript:void(0)" data-id="'.$row->id.'" class="btn btn-danger delete"><i class="mdi mdi-delete-forever"></i></a>';
+                            return $btn;
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
+            } catch (\Exception $e) {
+                return response()->json(['error' => $e->getMessage()]);
+            }
+        }
+
         $brand = [];
-        return view('brand.index', compact('brands', 'brand'));
+        return view('brand.index', compact('brand'));
     }
 
     /**
@@ -63,9 +80,13 @@ class BrandController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Brand $brand)
+    public function edit(string $id)
     {
-        //
+        $id = (int)$id;
+        $brand = Brand::find($id);
+        $brands = Brand::get();
+
+        return view('brand.index', compact('brand', 'brands'));
     }
 
     /**

@@ -28,7 +28,7 @@
                                     <!-- <input type="text" class="form-control" id="prod_name" name="prod_name" value="{{ $stock ? $stock->prod_name :  old('prod_name') }}" placeholder="Product Name" /> -->
                                     <select class="js-example-basic-single form-control" style="width: 100%" name='prod_id'>
                                         @foreach($products as $product)
-                                            <option value="{{ $product->id }}">{{ $product->product_name }}</option>
+                                            <option value="{{ $product->id }}">{{ $product->product_code }} | {{ $product->product_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

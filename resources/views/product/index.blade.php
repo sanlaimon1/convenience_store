@@ -21,6 +21,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Product Code</th>
                                     <th>Product Name</th>
                                     <th>Model Year</th>
                                     <th>Price</th>
@@ -40,7 +41,7 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-        $('#product_tbl').DataTable({
+        var table = $('#product_tbl').DataTable({
             "serverSide": true,
             "processing": true,
             "paging": true,
@@ -49,6 +50,7 @@
             ajax: "{{ route("product.index") }}",
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                { data: 'product_code', name: 'product_code' },
                 { data: 'product_name', name: 'product_name' },
                 { data: 'model_year', name: 'model_year' },
                 { data: 'list_price', name: 'list_price' },
@@ -56,6 +58,31 @@
                 { data: 'brand_id', name: 'brand' },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ]
+        });
+
+
+         // Delete button click event
+         $('#product_tbl').on('click', '.delete', function(){
+            var id = $(this).data('id');
+            var url = "{{ route('product.destroy', ['product' => ':id']) }}";
+            url = url.replace(':id', id);
+            if (del()) {
+                $.ajax({
+                    type: 'POST',
+                    data: { _method: 'DELETE'},
+                    url: url,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        table.ajax.reload();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
         });
     });
 </script>
