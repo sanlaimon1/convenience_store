@@ -13,9 +13,10 @@
           </div>
           <div class="nav-profile-text d-flex flex-column pr-3">
             <span class="font-weight-medium mb-2">Henry Klein</span>
-            <span class="font-weight-normal">$8,753.00</span>
+            <span class="font-weight-normal">online</span>
+            {{-- <span class="font-weight-normal">$8,753.00</span> --}}
           </div>
-          <span class="badge badge-danger text-white ml-3 rounded">3</span>
+          {{-- <span class="badge badge-danger text-white ml-3 rounded">3</span> --}}
         </a>
       </li>
       <li class="nav-item">
@@ -81,10 +82,15 @@
         <div class="nav-link">
           <div class="mt-4">
             <div class="border-none">
-              <p class="text-black">Sign Out</p>
+              <p class="text-black">Signout</p>
             </div>
             <ul class="mt-4 pl-0">
-              <li>Sign Out</li>
+              <form method="POST" action="{{ route('logout') }}">
+                  @csrf
+                  <button type="submit" class="singout">
+                    <i class="mdi mdi-logout menu-icon"></i> Signout
+                  </button>
+              </form>
             </ul>
           </div>
         </div>

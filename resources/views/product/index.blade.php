@@ -27,6 +27,7 @@
                                     <th>Price</th>
                                     <th>Category</th>
                                     <th>Brand</th>
+                                    <th>Created</th>
                                     <th>Status</th>
 
                                 </tr>
@@ -56,6 +57,10 @@
                 { data: 'list_price', name: 'list_price' },
                 { data: 'category_id', name: 'category' },
                 { data: 'brand_id', name: 'brand' },
+                { data: 'created_at', "render": function (value) {
+                            if (value === null) return "";
+                            return moment(value).format('DD/MM/YYYY');
+                        }},
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ]
         });

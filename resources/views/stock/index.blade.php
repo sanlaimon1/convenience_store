@@ -83,7 +83,10 @@
                 { data: 'product.product_code', name: 'product.product_code' },
                 { data: 'product.product_name', name: 'product.product_name' },
                 { data: 'quantity', name: 'quantity' },
-                { data: 'created_at', name: 'created_at' },
+                { data: 'created_at', "render": function (value) {
+                            if (value === null) return "";
+                            return moment(value).format('DD/MM/YYYY');
+                        }},
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ]
         });

@@ -67,7 +67,10 @@
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'brand_name', name: 'brand_name' },
-                { data: 'created_at', name: 'created_at' },
+                { data: 'created_at', "render": function (value) {
+                            if (value === null) return "";
+                            return moment(value).format('DD/MM/YYYY');
+                        }},
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ]
         });
